@@ -6,6 +6,15 @@
     <title>Toward Trustworthy Machine Learning in the Wild | IJCNN 2026</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        :root {
+            --primary: #1a2a6c;
+            --secondary: #4CAF50;
+            --accent: #2a3a7c;
+            --light: #f8f9fa;
+            --dark: #333;
+            --gray: #6c757d;
+        }
+        
         * {
             margin: 0;
             padding: 0;
@@ -14,8 +23,8 @@
         }
         
         body {
-            background-color: #f8f9fa;
-            color: #333;
+            background-color: var(--light);
+            color: var(--dark);
             line-height: 1.6;
         }
         
@@ -25,8 +34,9 @@
             padding: 0 20px;
         }
         
+        /* Header Styles */
         header {
-            background: linear-gradient(135deg, #1a2a6c, #2a3a7c, #3a4a8c);
+            background: linear-gradient(135deg, var(--primary), var(--accent));
             color: white;
             padding: 60px 0 40px;
             text-align: center;
@@ -72,7 +82,7 @@
         
         .btn {
             display: inline-block;
-            background: #4CAF50;
+            background: var(--secondary);
             color: white;
             padding: 12px 30px;
             border-radius: 30px;
@@ -80,6 +90,8 @@
             font-weight: 600;
             transition: all 0.3s ease;
             margin: 10px 5px;
+            border: none;
+            cursor: pointer;
         }
         
         .btn:hover {
@@ -95,9 +107,10 @@
         
         .btn-outline:hover {
             background: white;
-            color: #1a2a6c;
+            color: var(--primary);
         }
         
+        /* Section Styles */
         section {
             padding: 80px 0;
         }
@@ -113,16 +126,17 @@
             display: block;
             width: 80px;
             height: 4px;
-            background: #4CAF50;
+            background: var(--secondary);
             margin: 15px auto;
             border-radius: 2px;
         }
         
         h2 {
             font-size: 2.2rem;
-            color: #1a2a6c;
+            color: var(--primary);
         }
         
+        /* Card Grid */
         .card-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -149,16 +163,17 @@
         
         .card-icon {
             font-size: 2.5rem;
-            color: #1a2a6c;
+            color: var(--primary);
             margin-bottom: 20px;
         }
         
         .card h3 {
             font-size: 1.4rem;
             margin-bottom: 15px;
-            color: #1a2a6c;
+            color: var(--primary);
         }
         
+        /* Organizers Section */
         .organizers {
             background: #f0f3f5;
         }
@@ -204,11 +219,24 @@
         }
         
         .organizer-title {
-            color: #4CAF50;
+            color: var(--secondary);
             margin-bottom: 15px;
             font-size: 0.9rem;
         }
         
+        .organizer-link {
+            color: var(--primary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            display: inline-block;
+            margin-top: 10px;
+        }
+        
+        .organizer-link:hover {
+            text-decoration: underline;
+        }
+        
+        /* Topics Section */
         .topics {
             background: white;
         }
@@ -223,17 +251,18 @@
             background: #f8f9fa;
             padding: 20px;
             border-radius: 8px;
-            border-left: 4px solid #4CAF50;
+            border-left: 4px solid var(--secondary);
         }
         
         .topic-item h3 {
             font-size: 1.2rem;
             margin-bottom: 10px;
-            color: #1a2a6c;
+            color: var(--primary);
         }
         
+        /* Contact Section */
         .contact {
-            background: #1a2a6c;
+            background: var(--primary);
             color: white;
             text-align: center;
         }
@@ -260,6 +289,11 @@
             margin: 20px 0;
         }
         
+        .contact-email a {
+            color: var(--secondary);
+        }
+        
+        /* Footer */
         footer {
             background: #0d1a4d;
             color: white;
@@ -285,6 +319,56 @@
             color: white;
         }
         
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(26, 42, 108, 0.95);
+            z-index: 1000;
+            padding: 15px 0;
+            backdrop-filter: blur(10px);
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            color: white;
+            font-weight: 700;
+            font-size: 1.5rem;
+        }
+        
+        .nav-links {
+            display: flex;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            margin-left: 30px;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: var(--secondary);
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        /* Responsive Design */
         @media (max-width: 768px) {
             h1 {
                 font-size: 2.2rem;
@@ -301,10 +385,51 @@
             .card-grid, .organizer-grid, .topics-grid {
                 grid-template-columns: 1fr;
             }
+            
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: var(--primary);
+                flex-direction: column;
+                padding: 20px;
+            }
+            
+            .nav-links.active {
+                display: flex;
+            }
+            
+            .nav-links a {
+                margin: 10px 0;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Navigation -->
+    <nav>
+        <div class="container nav-container">
+            <div class="logo">TML-Wild</div>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="nav-links" id="navLinks">
+                <a href="#about">About</a>
+                <a href="#organizers">Organizers</a>
+                <a href="#topics">Topics</a>
+                <a href="#contact">Contact</a>
+                <a href="#impact">Impact</a>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Header -->
     <header>
         <div class="container">
             <div class="conference-badge">IJCNN 2026 Special Session</div>
@@ -317,6 +442,7 @@
         </div>
     </header>
     
+    <!-- About Section -->
     <section id="about">
         <div class="container">
             <div class="section-title">
@@ -354,7 +480,8 @@
         </div>
     </section>
     
-    <section class="organizers">
+    <!-- Organizers Section -->
+    <section class="organizers" id="organizers">
         <div class="container">
             <div class="section-title">
                 <h2>Session Organizers</h2>
@@ -367,6 +494,7 @@
                     <div class="organizer-name">Bo Peng</div>
                     <div class="organizer-title">PhD Candidate, UTS</div>
                     <p>Research focuses on responsible machine learning and open-world learning.</p>
+                    <a href="https://profiles.uts.edu.au/student_Bo.Peng-7" class="organizer-link">View Profile</a>
                 </div>
                 <div class="organizer-card">
                     <div class="organizer-img">
@@ -375,6 +503,7 @@
                     <div class="organizer-name">Dr. Sean Du</div>
                     <div class="organizer-title">Assistant Professor, NTU Singapore</div>
                     <p>Research focuses on responsible ML and foundation models.</p>
+                    <a href="https://d12306.github.io/" class="organizer-link">View Profile</a>
                 </div>
                 <div class="organizer-card">
                     <div class="organizer-img">
@@ -383,6 +512,7 @@
                     <div class="organizer-name">Dr. Yiliao Song</div>
                     <div class="organizer-title">Lecturer, Adelaide University</div>
                     <p>Research focused on trustworthiness of ML models and foundation models.</p>
+                    <a href="https://songyiliao.github.io/index.html" class="organizer-link">View Profile</a>
                 </div>
                 <div class="organizer-card">
                     <div class="organizer-img">
@@ -391,6 +521,7 @@
                     <div class="organizer-name">Dr. Yadan Luo</div>
                     <div class="organizer-title">Senior Lecturer, University of Queensland</div>
                     <p>Research focuses on generalization and efficiency of vision models.</p>
+                    <a href="https://luoyadan.github.io/" class="organizer-link">View Profile</a>
                 </div>
                 <div class="organizer-card">
                     <div class="organizer-img">
@@ -399,6 +530,7 @@
                     <div class="organizer-name">Dr. Feng Liu</div>
                     <div class="organizer-title">Senior Lecturer, University of Melbourne</div>
                     <p>Research interests center on trustworthy machine learning.</p>
+                    <a href="https://fengliu90.github.io/" class="organizer-link">View Profile</a>
                 </div>
                 <div class="organizer-card">
                     <div class="organizer-img">
@@ -407,6 +539,7 @@
                     <div class="organizer-name">Dr. Zhen Fang</div>
                     <div class="organizer-title">Lecturer, UTS</div>
                     <p>Research interests center on the theory of machine learning models.</p>
+                    <a href="https://fang-zhen.github.io/index.html" class="organizer-link">View Profile</a>
                 </div>
                 <div class="organizer-card">
                     <div class="organizer-img">
@@ -415,6 +548,7 @@
                     <div class="organizer-name">Dr. Sharon Yixuan Li</div>
                     <div class="organizer-title">Associate Professor, UW-Madison</div>
                     <p>Research focuses on algorithmic foundations for reliable ML in open world.</p>
+                    <a href="https://pages.cs.wisc.edu/~sharonli/" class="organizer-link">View Profile</a>
                 </div>
                 <div class="organizer-card">
                     <div class="organizer-img">
@@ -423,12 +557,14 @@
                     <div class="organizer-name">Dr. Ling Chen</div>
                     <div class="organizer-title">Professor, UTS</div>
                     <p>Research expertise in representation learning and anomaly detection.</p>
+                    <a href="https://profiles.uts.edu.au/Ling.Chen" class="organizer-link">View Profile</a>
                 </div>
             </div>
         </div>
     </section>
     
-    <section class="topics">
+    <!-- Topics Section -->
+    <section class="topics" id="topics">
         <div class="container">
             <div class="section-title">
                 <h2>Topics of Interest</h2>
@@ -462,6 +598,54 @@
         </div>
     </section>
     
+    <!-- Impact Section -->
+    <section id="impact">
+        <div class="container">
+            <div class="section-title">
+                <h2>Potential Impact</h2>
+            </div>
+            <div class="card-grid">
+                <div class="card">
+                    <div class="card-content">
+                        <div class="card-icon">
+                            <i class="fas fa-flask"></i>
+                        </div>
+                        <h3>Research</h3>
+                        <p>Clearer links between theory and practice; standardized evaluation under distribution shift.</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-content">
+                        <div class="card-icon">
+                            <i class="fas fa-cogs"></i>
+                        </div>
+                        <h3>Practice</h3>
+                        <p>Recipes for rollout safety and monitoring for ML reliability, and governance frameworks that reduce risk and compliance burden.</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-content">
+                        <div class="card-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h3>Society</h3>
+                        <p>Improved fairness, privacy, and safety characteristics in high-stakes deployments, increasing public trust in ML technologies.</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-content">
+                        <div class="card-icon">
+                            <i class="fas fa-handshake"></i>
+                        </div>
+                        <h3>Community</h3>
+                        <p>Open datasets/tools, shared testbeds, and cross-disciplinary collaborations seeded by the session.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Contact Section -->
     <section class="contact" id="contact">
         <div class="container">
             <div class="section-title">
@@ -471,16 +655,19 @@
                 <p>For inquiries about this special session, please contact:</p>
                 <div class="contact-email">
                     <strong>Dr. Zhen Fang (Primary Contact)</strong><br>
-                    <a href="mailto:zhen.fang@uts.edu.au" style="color: #4CAF50;">zhen.fang@uts.edu.au</a>
+                    <a href="mailto:zhen.fang@uts.edu.au">zhen.fang@uts.edu.au</a>
                 </div>
                 <p>Other organizers:</p>
-                <p>Bo Peng: bopeng.ml@gmail.com<br>
-                Dr. Sean Du: xuefeng.du@ntu.edu.sg<br>
-                Dr. Yiliao Song: lia.song@adelaide.edu.au</p>
+                <p>
+                    Bo Peng: <a href="mailto:bopeng.ml@gmail.com">bopeng.ml@gmail.com</a><br>
+                    Dr. Sean Du: <a href="mailto:xuefeng.du@ntu.edu.sg">xuefeng.du@ntu.edu.sg</a><br>
+                    Dr. Yiliao Song: <a href="mailto:lia.song@adelaide.edu.au">lia.song@adelaide.edu.au</a>
+                </p>
             </div>
         </div>
     </section>
     
+    <!-- Footer -->
     <footer>
         <div class="container">
             <div class="footer-links">
@@ -492,5 +679,33 @@
             <p>&copy; 2025 Special Session: Toward Trustworthy Machine Learning in the Wild. All rights reserved.</p>
         </div>
     </footer>
+
+    <script>
+        // Mobile menu toggle
+        document.getElementById('mobileMenuBtn').addEventListener('click', function() {
+            document.getElementById('navLinks').classList.toggle('active');
+        });
+        
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    document.getElementById('navLinks').classList.remove('active');
+                }
+            });
+        });
+    </script>
 </body>
 </html>
