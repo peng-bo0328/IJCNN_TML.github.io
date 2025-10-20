@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Toward Trustworthy Machine Learning in the Wild | IJCNN 2026</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #1a2a6c, #2a3a7c, #3a4a8c);
+            color: white;
+            padding: 60px 0 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.1)"/></svg>');
+            background-size: cover;
+        }
+        
+        .conference-badge {
+            background: rgba(255, 255, 255, 0.2);
+            display: inline-block;
+            padding: 8px 16px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+            backdrop-filter: blur(5px);
+        }
+        
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+        
+        .subtitle {
+            font-size: 1.4rem;
+            margin-bottom: 30px;
+            font-weight: 300;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: #4CAF50;
+            color: white;
+            padding: 12px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin: 10px 5px;
+        }
+        
+        .btn:hover {
+            background: #3d8b40;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 2px solid white;
+        }
+        
+        .btn-outline:hover {
+            background: white;
+            color: #1a2a6c;
+        }
+        
+        section {
+            padding: 80px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: #4CAF50;
+            margin: 15px auto;
+            border-radius: 2px;
+        }
+        
+        h2 {
+            font-size: 2.2rem;
+            color: #1a2a6c;
+        }
+        
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+        
+        .card-content {
+            padding: 25px;
+        }
+        
+        .card-icon {
+            font-size: 2.5rem;
+            color: #1a2a6c;
+            margin-bottom: 20px;
+        }
+        
+        .card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            color: #1a2a6c;
+        }
+        
+        .organizers {
+            background: #f0f3f5;
+        }
+        
+        .organizer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        
+        .organizer-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            text-align: center;
+            padding: 30px 20px;
+            transition: transform 0.3s ease;
+        }
+        
+        .organizer-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .organizer-img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 20px;
+            background: #e0e0e0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #888;
+            font-size: 2.5rem;
+        }
+        
+        .organizer-name {
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+        }
+        
+        .organizer-title {
+            color: #4CAF50;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+        }
+        
+        .topics {
+            background: white;
+        }
+        
+        .topics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 20px;
+        }
+        
+        .topic-item {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #4CAF50;
+        }
+        
+        .topic-item h3 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: #1a2a6c;
+        }
+        
+        .contact {
+            background: #1a2a6c;
+            color: white;
+            text-align: center;
+        }
+        
+        .contact h2 {
+            color: white;
+        }
+        
+        .contact-info {
+            max-width: 600px;
+            margin: 0 auto;
+            background: rgba(255,255,255,0.1);
+            padding: 30px;
+            border-radius: 10px;
+            backdrop-filter: blur(5px);
+        }
+        
+        .contact-info p {
+            margin-bottom: 15px;
+        }
+        
+        .contact-email {
+            font-size: 1.3rem;
+            margin: 20px 0;
+        }
+        
+        footer {
+            background: #0d1a4d;
+            color: white;
+            text-align: center;
+            padding: 40px 0;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+        
+        .footer-links a {
+            color: #aaa;
+            margin: 0 15px;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .subtitle {
+                font-size: 1.1rem;
+            }
+            
+            section {
+                padding: 50px 0;
+            }
+            
+            .card-grid, .organizer-grid, .topics-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="conference-badge">IJCNN 2026 Special Session</div>
+            <h1>Toward Trustworthy Machine Learning in the Wild</h1>
+            <p class="subtitle">Theory, Algorithm and Application</p>
+            <div class="header-buttons">
+                <a href="#about" class="btn">Learn More</a>
+                <a href="#contact" class="btn btn-outline">Contact Us</a>
+            </div>
+        </div>
+    </header>
+    
+    <section id="about">
+        <div class="container">
+            <div class="section-title">
+                <h2>About This Special Session</h2>
+            </div>
+            <div class="card-grid">
+                <div class="card">
+                    <div class="card-content">
+                        <div class="card-icon">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </div>
+                        <h3>Motivation</h3>
+                        <p>Deployed ML systems increasingly operate under dataset shift, partial observability, distributional drift, and adversarial pressure. In safety-critical contexts, these systems must be reliable, robust, fair, private, and accountable.</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-content">
+                        <div class="card-icon">
+                            <i class="fas fa-bullseye"></i>
+                        </div>
+                        <h3>Objectives</h3>
+                        <p>This special session brings together advances in theory, algorithms, and applications to connect principled risk bounds with scalable methods and field results, spotlighting evaluation protocols that reflect operational realities.</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-content">
+                        <div class="card-icon">
+                            <i class="fas fa-lightbulb"></i>
+                        </div>
+                        <h3>Novelty</h3>
+                        <p>Our session uniquely bridges theory, algorithm and application, addressing urgent needs in the era of foundation models which often demonstrate poor trustworthiness in real-world environments.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="organizers">
+        <div class="container">
+            <div class="section-title">
+                <h2>Session Organizers</h2>
+            </div>
+            <div class="organizer-grid">
+                <div class="organizer-card">
+                    <div class="organizer-img">
+                        <i class="fas fa-user-graduate"></i>
+                    </div>
+                    <div class="organizer-name">Bo Peng</div>
+                    <div class="organizer-title">PhD Candidate, UTS</div>
+                    <p>Research focuses on responsible machine learning and open-world learning.</p>
+                </div>
+                <div class="organizer-card">
+                    <div class="organizer-img">
+                        <i class="fas fa-user-tie"></i>
+                    </div>
+                    <div class="organizer-name">Dr. Sean Du</div>
+                    <div class="organizer-title">Assistant Professor, NTU Singapore</div>
+                    <p>Research focuses on responsible ML and foundation models.</p>
+                </div>
+                <div class="organizer-card">
+                    <div class="organizer-img">
+                        <i class="fas fa-user-tie"></i>
+                    </div>
+                    <div class="organizer-name">Dr. Yiliao Song</div>
+                    <div class="organizer-title">Lecturer, Adelaide University</div>
+                    <p>Research focused on trustworthiness of ML models and foundation models.</p>
+                </div>
+                <div class="organizer-card">
+                    <div class="organizer-img">
+                        <i class="fas fa-user-tie"></i>
+                    </div>
+                    <div class="organizer-name">Dr. Yadan Luo</div>
+                    <div class="organizer-title">Senior Lecturer, University of Queensland</div>
+                    <p>Research focuses on generalization and efficiency of vision models.</p>
+                </div>
+                <div class="organizer-card">
+                    <div class="organizer-img">
+                        <i class="fas fa-user-tie"></i>
+                    </div>
+                    <div class="organizer-name">Dr. Feng Liu</div>
+                    <div class="organizer-title">Senior Lecturer, University of Melbourne</div>
+                    <p>Research interests center on trustworthy machine learning.</p>
+                </div>
+                <div class="organizer-card">
+                    <div class="organizer-img">
+                        <i class="fas fa-user-tie"></i>
+                    </div>
+                    <div class="organizer-name">Dr. Zhen Fang</div>
+                    <div class="organizer-title">Lecturer, UTS</div>
+                    <p>Research interests center on the theory of machine learning models.</p>
+                </div>
+                <div class="organizer-card">
+                    <div class="organizer-img">
+                        <i class="fas fa-user-tie"></i>
+                    </div>
+                    <div class="organizer-name">Dr. Sharon Yixuan Li</div>
+                    <div class="organizer-title">Associate Professor, UW-Madison</div>
+                    <p>Research focuses on algorithmic foundations for reliable ML in open world.</p>
+                </div>
+                <div class="organizer-card">
+                    <div class="organizer-img">
+                        <i class="fas fa-user-tie"></i>
+                    </div>
+                    <div class="organizer-name">Dr. Ling Chen</div>
+                    <div class="organizer-title">Professor, UTS</div>
+                    <p>Research expertise in representation learning and anomaly detection.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="topics">
+        <div class="container">
+            <div class="section-title">
+                <h2>Topics of Interest</h2>
+            </div>
+            <div class="topics-grid">
+                <div class="topic-item">
+                    <h3>Distribution Shift</h3>
+                    <p>OOD detection, open-set recognition, OOD generalization, test-time adaptation, test-time training</p>
+                </div>
+                <div class="topic-item">
+                    <h3>Robust Learning</h3>
+                    <p>Adversarial robustness, poisoning and backdoor defenses</p>
+                </div>
+                <div class="topic-item">
+                    <h3>Model Uncertainty Estimation</h3>
+                    <p>Bayesian deep learning, conformal prediction, selective classification</p>
+                </div>
+                <div class="topic-item">
+                    <h3>Autonomous Trustworthy ML</h3>
+                    <p>Hyperparameter optimization and neural architecture search</p>
+                </div>
+                <div class="topic-item">
+                    <h3>Trustworthy Foundation Models</h3>
+                    <p>Jailbreak and prompt-injection defenses, data poisoning and backdoors, hallucination detection/mitigation</p>
+                </div>
+                <div class="topic-item">
+                    <h3>Evaluation</h3>
+                    <p>Benchmark datasets, platforms and measures to evaluate trustworthiness in real-world contexts</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="contact" id="contact">
+        <div class="container">
+            <div class="section-title">
+                <h2>Contact Information</h2>
+            </div>
+            <div class="contact-info">
+                <p>For inquiries about this special session, please contact:</p>
+                <div class="contact-email">
+                    <strong>Dr. Zhen Fang (Primary Contact)</strong><br>
+                    <a href="mailto:zhen.fang@uts.edu.au" style="color: #4CAF50;">zhen.fang@uts.edu.au</a>
+                </div>
+                <p>Other organizers:</p>
+                <p>Bo Peng: bopeng.ml@gmail.com<br>
+                Dr. Sean Du: xuefeng.du@ntu.edu.sg<br>
+                Dr. Yiliao Song: lia.song@adelaide.edu.au</p>
+            </div>
+        </div>
+    </section>
+    
+    <footer>
+        <div class="container">
+            <div class="footer-links">
+                <a href="#">IJCNN 2026</a>
+                <a href="#">Call for Papers</a>
+                <a href="#">Important Dates</a>
+                <a href="#">Submission Guidelines</a>
+            </div>
+            <p>&copy; 2025 Special Session: Toward Trustworthy Machine Learning in the Wild. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
